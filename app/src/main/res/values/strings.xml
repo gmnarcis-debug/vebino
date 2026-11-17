@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">وبینو</string>
+    <string name="file_provider_authority" translatable="false">${applicationId}.fileprovider</string>
+
+    <!-- Brand & Splash -->
+    <string name="brand_title">وبینو • WEBINO</string>
+    <string name="brand_tagline">وب‌سایتت را به اپلیکیشن اندروید تبدیل کن.</string>
+    <string name="studio_title">استودیو وبینو</string>
+    <string name="studio_subtitle">وب‌سایتت را روی همین گوشی به APK و AAB تبدیل کن</string>
+    <string name="help_cd">راهنما</string>
+    <string name="back_cd">بازگشت</string>
+
+    <!-- Bottom Navigation (5 Tabs) -->
+    <string name="nav_home">خانه</string>
+    <string name="nav_projects">پروژه‌ها</string>
+    <string name="nav_build">ساخت برنامه</string>
+    <string name="nav_outputs">خروجی‌ها</string>
+    <string name="nav_settings">تنظیمات</string>
+
+    <!-- Dashboard -->
+    <string name="hero_badge_offline">کامپایل ۱۰۰٪ آفلاین روی گوشی</string>
+    <string name="hero_title">ساخت اپلیکیشن مستقل بدون سرور و کامپیوتر</string>
+    <string name="hero_create_cta">ساخت اپلیکیشن جدید</string>
+    <string name="stat_projects">پروژه‌ها</string>
+    <string name="stat_outputs">خروجی‌ها</string>
+    <string name="stat_storage">فضای مصرفی</string>
+    <string name="stat_build_engine">موتور Build</string>
+    <string name="engine_status_not_checked">بررسی نشده</string>
+    <string name="engine_status_checking">در حال بررسی...</string>
+    <string name="engine_status_ready">آماده</string>
+    <string name="engine_status_unsupported">پشتیبانی نمی‌شود</string>
+    <string name="engine_status_error">خطای محیط</string>
+    <string name="engine_recheck">بررسی مجدد موتور</string>
+    <string name="section_templates">قالب‌های آماده تجاری</string>
+    <string name="section_templates_sub">تنظیمات بهینه برای شروع سریع</string>
+    <string name="section_recent_projects">آخرین پروژه‌ها</string>
+    <string name="section_recent_activities">آخرین فعالیت‌ها</string>
+    <string name="section_recent_outputs">آخرین خروجی‌های ساخته‌شده</string>
+    <string name="empty_projects_title">هنوز پروژه‌ای نساخته‌اید</string>
+    <string name="empty_projects_sub">آدرس سایت خود را وارد کنید تا در چند ثانیه خروجی APK واقعی بسازید.</string>
+    <string name="empty_projects_cta">شروع ساخت اولین اپ</string>
+
+    <!-- Projects Manager -->
+    <string name="projects_title">مدیریت پروژه‌ها</string>
+    <string name="projects_search_hint">جست‌وجو بر اساس نام، آدرس یا بسته...</string>
+    <string name="projects_import_json">وارد کردن JSON</string>
+    <string name="projects_export_json">خروجی JSON</string>
+    <string name="projects_empty_title">پروژه‌ای یافت نشد</string>
+    <string name="projects_empty_sub">فیلترها را تغییر دهید یا یک پروژه جدید بسازید.</string>
+    <string name="projects_new_btn">پروژه جدید</string>
+    <string name="projects_all_templates">همه قالب‌ها</string>
+    <string name="projects_sort_recent">جدیدترین</string>
+    <string name="projects_sort_name">نام الفبایی</string>
+    <string name="projects_sort_version">بالاترین نسخه</string>
+    <string name="projects_last_updated">آخرین ویرایش:</string>
+    <string name="projects_status_ready">آماده ساخت</string>
+    <string name="projects_status_built">دارای خروجی (%1$d)</string>
+    <string name="projects_delete_title">تأیید حذف پروژه</string>
+    <string name="projects_delete_confirm">آیا از حذف پروژه «%1$s» اطمینان دارید؟ این عملیات قابل بازگشت نیست.</string>
+    <string name="action_delete_final">حذف نهایی</string>
+    <string name="action_cancel">انصراف</string>
+    <string name="action_close">بستن</string>
+    <string name="action_save">ذخیره</string>
+    <string name="action_preview">پیش‌نمایش</string>
+    <string name="action_build">ساخت</string>
+
+    <!-- Create Project -->
+    <string name="create_title">ساخت پروژه جدید</string>
+    <string name="create_step_url">۱. نشانی وب‌سایت</string>
+    <string name="create_url_label">آدرس سایت (مثال: https://shop.ir)</string>
+    <string name="create_https_safe">HTTPS امن</string>
+    <string name="create_http_unsafe">HTTP غیرامن (پیش‌فرض مسدود)</string>
+    <string name="create_url_invalid">آدرس نامعتبر</string>
+    <string name="create_ir_domain">دامنه ایران (.ir)</string>
+    <string name="create_inspect_btn">دریافت خودکار اطلاعات وب‌سایت</string>
+    <string name="create_inspecting">در حال دریافت عنوان، Favicon و رنگ سایت...</string>
+    <string name="create_step_template">۲. انتخاب قالب تخصصی</string>
+    <string name="create_step_identity">۳. مشخصات اپلیکیشن</string>
+    <string name="create_app_name">نام اپلیکیشن</string>
+    <string name="create_package_name">نام بسته (Package Name)</string>
+    <string name="create_duplicate_pkg_warn">هشدار: این Package Name قبلاً در پروژه «%1$s» استفاده شده است.</string>
+    <string name="create_version_name">نام نسخه</string>
+    <string name="create_version_code">کد نسخه</string>
+    <string name="create_description">توضیحات پروژه</string>
+    <string name="create_submit_btn">ذخیره و ورود به استودیو پروژه</string>
+
+    <!-- Web Preview -->
+    <string name="preview_title">پیش‌نمایش زنده</string>
+    <string name="preview_back_cd">صفحه قبل</string>
+    <string name="preview_forward_cd">صفحه بعد</string>
+    <string name="preview_refresh_cd">بارگذاری مجدد</string>
+    <string name="preview_open_external_cd">باز کردن در مرورگر</string>
+    <string name="preview_clear_cache_cd">پاکسازی کش</string>
+    <string name="preview_error_title">خطا در بارگذاری صفحه</string>
+    <string name="preview_retry_btn">تلاش مجدد</string>
+    <string name="preview_ssl_title">هشدار امنیتی گواهی SSL</string>
+
+    <!-- Settings -->
+    <string name="settings_title">تنظیمات و امنیت</string>
+    <string name="settings_language_section">زبان و بومی‌سازی</string>
+    <string name="settings_language_label">زبان رابط کاربری</string>
+    <string name="settings_calendar_label">تقویم</string>
+    <string name="settings_persian_digits">نمایش اعداد فارسی</string>
+    <string name="settings_persian_digits_desc">نمایش تاریخ، حجم فایل و درصدها با ارقام فارسی (۰۱۲۳)</string>
+    <string name="settings_theme_section">ظاهر و فونت</string>
+    <string name="settings_theme_dark">سرمه‌ای تیره</string>
+    <string name="settings_theme_light">روشن</string>
+    <string name="settings_theme_system">سیستم</string>
+    <string name="settings_font_vazirmatn">فونت وزیرمتن</string>
+    <string name="settings_font_lalezar">تیتر لاله‌زار</string>
+    <string name="settings_font_noto">نسخ خوانا</string>
+    <string name="settings_signing_title">مدیریت امضای دیجیتال و Keystore</string>
+    <string name="settings_storage_title">مدیریت فضای ذخیره‌سازی و حریم خصوصی</string>
+    <string name="settings_clear_cache_btn">پاکسازی فایل‌های موقت کامپایل</string>
+    <string name="settings_help_title">راهنما، پشتیبانی و انتشار در مایکت</string>
+    <string name="settings_about_title">درباره وبینو (WEBINO)</string>
+
+    <!-- Build & Outputs -->
+    <string name="build_manager_title">مدیریت ساخت</string>
+    <string name="build_select_project">انتخاب پروژه برای ساخت</string>
+    <string name="build_no_projects">ابتدا یک پروژه بسازید تا بتوانید خروجی APK یا AAB تولید کنید.</string>
+    <string name="outputs_title">خروجی‌های APK و AAB</string>
+    <string name="outputs_empty_title">هنوز خروجی ساخته نشده است</string>
+    <string name="outputs_empty_sub">از بخش ساخت برنامه یا پروژه‌ها، کامپایل APK یا AAB را اجرا کنید.</string>
+
+    <!-- About & Commercial Identity (NO email exposed here) -->
+    <string name="about_screen_title">درباره وبینو</string>
+    <string name="about_brand_display">وبینو | WEBINO</string>
+    <string name="about_intro_title">معرفی وبینو</string>
+    <string name="about_intro_body">وبینو (WEBINO) یک ابزار حرفه‌ای و تجاری برای تبدیل وب‌سایت‌ها به اپلیکیشن اندرویدی مستقل است. بدون نیاز به دانش برنامه‌نویسی یا سرور ابری، می‌توانید نشانی وب‌سایت خود را وارد کرده، ظاهر و امکانات WebView را شخصی‌سازی کنید و خروجی واقعی APK و AAB امضاشده بسازید.</string>
+    <string name="about_features_title">امکانات اصلی وبینو</string>
+    <string name="about_org_title">اطلاعات توسعه‌دهنده و پشتیبانی</string>
+    <string name="about_developer_label">توسعه‌دهنده:</string>
+    <string name="about_developer_value">تیم نرم افزاری ردلاین سافت البرز</string>
+    <string name="about_manager_label">مدیریت:</string>
+    <string name="about_manager_value">مهندس مهدی رضایی</string>
+    <string name="about_support_btn">ارتباط با پشتیبانی</string>
+    <string name="about_myket_section_title">همراهی و انتشار در مایکت</string>
+    <string name="about_myket_review_btn">ثبت نظر و امتیاز در مایکت</string>
+    <string name="about_myket_dev_btn">دیگر برنامه‌های ما</string>
+    <string name="about_no_email_app">هیچ برنامه ایمیلی روی دستگاه شما پیکربندی نشده است.</string>
+    <string name="about_no_store_browser">برنامه مایکت یا مرورگر برای باز کردن این صفحه یافت نشد.</string>
+
+    <!-- Double-back exit -->
+    <string name="double_back_exit_prompt">برای خروج، یک بار دیگر دکمه بازگشت را بزنید.</string>
+    <string name="exit_active_build_title">عملیات ساخت در حال اجراست</string>
+    <string name="exit_active_build_msg">در حال حاضر یک فرایند کامپایل و ساخت در پس‌زمینه فعال است. آیا مطمئن هستید که می‌خواهید از برنامه خارج شوید؟</string>
+    <string name="exit_active_build_stay">ادامه ساخت</string>
+    <string name="exit_active_build_leave">خروج از برنامه</string>
+</resources>

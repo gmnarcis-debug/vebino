@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سایت آزمایشی وبینو | WEBINO Operational Test Site</title>
+</head>
+<body>
+  <h1>وب‌سایت آزمایشی موتور WebView وبینو</h1>
+
+  <section id="auth-session">
+    <h2>۱. ورود و نشست (Login / Cookies / LocalStorage)</h2>
+    <input id="username" type="text" value="demo_user" />
+    <button id="loginBtn" onclick="doLogin()">ورود آزمایشی</button>
+    <script>
+      function doLogin() {
+        document.cookie = "webino_session=active_demo_token; path=/; SameSite=Lax";
+        localStorage.setItem("webino_cart", "2");
+        sessionStorage.setItem("webino_step", "checkout");
+      }
+    </script>
+  </section>
+
+  <section id="uploads">
+    <h2>۲. آپلود تصویر چندتایی و PDF</h2>
+    <input id="uploadMultiImages" type="file" accept="image/*" multiple capture="environment" />
+    <input id="uploadPdf" type="file" accept=".pdf,application/pdf" />
+  </section>
+
+  <section id="downloads">
+    <h2>۳. دانلود فایل PDF و تصویر</h2>
+    <a id="dlPdf" href="https://example.ir/files/invoice-1404.pdf" download>دانلود فاکتور PDF</a>
+    <a id="dlPng" href="https://example.ir/images/banner.png" download>دانلود تصویر PNG</a>
+  </section>
+
+  <section id="media">
+    <h2>۴. پخش ویدئو تمام‌صفحه</h2>
+    <video id="demoVideo" controls width="320" playsinline>
+      <source src="https://example.ir/media/sample.mp4" type="video/mp4" />
+    </video>
+  </section>
+
+  <section id="links">
+    <h2>۵. لینک‌های خارجی و طرح‌های بومی</h2>
+    <a id="telLink" href="tel:+982188889999">تماس تلفنی</a>
+    <a id="mailLink" href="mailto:support@example.ir">ایمیل پشتیبانی</a>
+    <a id="waLink" href="https://wa.me/989120000000">واتساپ</a>
+    <a id="extLink" href="https://external-partner.ir/offer">دامنه خارجی</a>
+    <button id="popupBtn" onclick="window.open('https://example.ir/promo', '_blank')">پنجره پاپ‌آپ</button>
+  </section>
+
+  <section id="geo">
+    <h2>۶. موقعیت مکانی GPS</h2>
+    <button id="geoBtn" onclick="navigator.geolocation.getCurrentPosition(function(){})">دریافت موقعیت</button>
+  </section>
+</body>
+</html>

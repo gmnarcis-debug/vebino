@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Signing keys are protected by an AndroidKeyStore key that is NOT restored on another device,
+     so backing up the .p12 files or the database that points at them would only produce unusable
+     (and needlessly exposed) copies. Keep them out of every backup. -->
+<full-backup-content>
+    <exclude domain="file" path="keystores/" />
+    <exclude domain="file" path="outputs/" />
+    <exclude domain="file" path="build_reports/" />
+    <exclude domain="file" path="project_media/" />
+    <exclude domain="database" path="." />
+</full-backup-content>

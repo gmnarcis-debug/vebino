@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WEBINO</string>
+    <string name="file_provider_authority" translatable="false">${applicationId}.fileprovider</string>
+
+    <!-- Brand & Splash -->
+    <string name="brand_title">WEBINO • وبینو</string>
+    <string name="brand_tagline">Turn your website into a standalone Android app.</string>
+    <string name="studio_title">WEBINO Studio</string>
+    <string name="studio_subtitle">On-device Website-to-App APK &amp; AAB Builder</string>
+    <string name="help_cd">Help</string>
+    <string name="back_cd">Back</string>
+
+    <!-- Bottom Navigation (5 Tabs) -->
+    <string name="nav_home">Home</string>
+    <string name="nav_projects">Projects</string>
+    <string name="nav_build">Build App</string>
+    <string name="nav_outputs">Outputs</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Dashboard -->
+    <string name="hero_badge_offline">100% On-Device Compiler</string>
+    <string name="hero_title">Build standalone signed APKs without servers</string>
+    <string name="hero_create_cta">Create New App</string>
+    <string name="stat_projects">Projects</string>
+    <string name="stat_outputs">Outputs</string>
+    <string name="stat_storage">Storage Used</string>
+    <string name="stat_build_engine">Build Engine</string>
+    <string name="engine_status_not_checked">Not Checked</string>
+    <string name="engine_status_checking">Checking...</string>
+    <string name="engine_status_ready">Ready</string>
+    <string name="engine_status_unsupported">Unsupported</string>
+    <string name="engine_status_error">Error</string>
+    <string name="engine_recheck">Recheck Engine</string>
+    <string name="section_templates">Commercial App Templates</string>
+    <string name="section_templates_sub">Optimized presets for quick start</string>
+    <string name="section_recent_projects">Recent Projects</string>
+    <string name="section_recent_activities">Recent Activities</string>
+    <string name="section_recent_outputs">Recent Built Outputs</string>
+    <string name="empty_projects_title">No projects yet</string>
+    <string name="empty_projects_sub">Enter your website URL to compile a real standalone APK in seconds.</string>
+    <string name="empty_projects_cta">Create First App</string>
+
+    <!-- Projects Manager -->
+    <string name="projects_title">Projects Manager</string>
+    <string name="projects_search_hint">Search by name, domain, or package...</string>
+    <string name="projects_import_json">Import JSON</string>
+    <string name="projects_export_json">Export JSON</string>
+    <string name="projects_empty_title">No matching projects</string>
+    <string name="projects_empty_sub">Adjust filters or create a new project.</string>
+    <string name="projects_new_btn">New Project</string>
+    <string name="projects_all_templates">All Templates</string>
+    <string name="projects_sort_recent">Newest</string>
+    <string name="projects_sort_name">Alphabetical</string>
+    <string name="projects_sort_version">Highest Version</string>
+    <string name="projects_last_updated">Updated:</string>
+    <string name="projects_status_ready">Ready to Build</string>
+    <string name="projects_status_built">Built (%1$d)</string>
+    <string name="projects_delete_title">Confirm Deletion</string>
+    <string name="projects_delete_confirm">Are you sure you want to delete "%1$s"? This cannot be undone.</string>
+    <string name="action_delete_final">Delete</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_close">Close</string>
+    <string name="action_save">Save</string>
+    <string name="action_preview">Preview</string>
+    <string name="action_build">Build</string>
+
+    <!-- Create Project -->
+    <string name="create_title">New App Project</string>
+    <string name="create_step_url">1. Website URL</string>
+    <string name="create_url_label">Website URL (e.g. https://shop.ir)</string>
+    <string name="create_https_safe">Secure HTTPS</string>
+    <string name="create_http_unsafe">Unsafe HTTP (Blocked by default)</string>
+    <string name="create_url_invalid">Invalid URL</string>
+    <string name="create_ir_domain">Iran Domain (.ir)</string>
+    <string name="create_inspect_btn">Fetch Website Metadata</string>
+    <string name="create_inspecting">Fetching title, favicon &amp; theme color...</string>
+    <string name="create_step_template">2. Select App Template</string>
+    <string name="create_step_identity">3. App Identity</string>
+    <string name="create_app_name">App Name</string>
+    <string name="create_package_name">Package Name</string>
+    <string name="create_duplicate_pkg_warn">Warning: Package Name already used in project "%1$s".</string>
+    <string name="create_version_name">Version Name</string>
+    <string name="create_version_code">Version Code</string>
+    <string name="create_description">Project Description</string>
+    <string name="create_submit_btn">Save &amp; Open Studio</string>
+
+    <!-- Web Preview -->
+    <string name="preview_title">Live Preview</string>
+    <string name="preview_back_cd">Go Back</string>
+    <string name="preview_forward_cd">Go Forward</string>
+    <string name="preview_refresh_cd">Reload</string>
+    <string name="preview_open_external_cd">Open in Browser</string>
+    <string name="preview_clear_cache_cd">Clear Cache</string>
+    <string name="preview_error_title">Page Load Error</string>
+    <string name="preview_retry_btn">Retry</string>
+    <string name="preview_ssl_title">SSL Certificate Security Warning</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings &amp; Security</string>
+    <string name="settings_language_section">Language &amp; Localization</string>
+    <string name="settings_language_label">UI Language</string>
+    <string name="settings_calendar_label">Calendar</string>
+    <string name="settings_persian_digits">Persian Digits</string>
+    <string name="settings_persian_digits_desc">Display dates, sizes, and percentages using Persian numerals</string>
+    <string name="settings_theme_section">Theme &amp; Typography</string>
+    <string name="settings_theme_dark">Navy Dark</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_font_vazirmatn">Vazirmatn Font</string>
+    <string name="settings_font_lalezar">Lalezar Display</string>
+    <string name="settings_font_noto">Noto Naskh</string>
+    <string name="settings_signing_title">Digital Signing &amp; Keystore Manager</string>
+    <string name="settings_storage_title">Storage &amp; Privacy</string>
+    <string name="settings_clear_cache_btn">Clear Temporary Build Cache</string>
+    <string name="settings_help_title">Help, Support &amp; Store Checklist</string>
+    <string name="settings_about_title">About WEBINO</string>
+
+    <!-- Build & Outputs -->
+    <string name="build_manager_title">Build Manager</string>
+    <string name="build_select_project">Select Project to Build</string>
+    <string name="build_no_projects">Create a project first to compile APK or AAB outputs.</string>
+    <string name="outputs_title">APK &amp; AAB Outputs</string>
+    <string name="outputs_empty_title">No outputs built yet</string>
+    <string name="outputs_empty_sub">Open Build App or Projects to compile your APK or AAB.</string>
+
+    <!-- About & Commercial Identity (NO email exposed here) -->
+    <string name="about_screen_title">About WEBINO</string>
+    <string name="about_brand_display">WEBINO | وبینو</string>
+    <string name="about_intro_title">About WEBINO</string>
+    <string name="about_intro_body">WEBINO is a professional Android website-to-app builder designed for creating standalone APK and AAB packages directly on your device with live preview, custom branding, and advanced WebView controls.</string>
+    <string name="about_features_title">Key Features</string>
+    <string name="about_org_title">Developer &amp; Support</string>
+    <string name="about_developer_label">Developer:</string>
+    <string name="about_developer_value">RedLine Soft Alborz Software Team</string>
+    <string name="about_manager_label">Management:</string>
+    <string name="about_manager_value">Eng. Mahdi Rezaei</string>
+    <string name="about_support_btn">Contact Support</string>
+    <string name="about_myket_section_title">Community &amp; Myket Store</string>
+    <string name="about_myket_review_btn">Rate &amp; Review on Myket</string>
+    <string name="about_myket_dev_btn">Our Other Apps</string>
+    <string name="about_no_email_app">No email app is configured on this device.</string>
+    <string name="about_no_store_browser">Myket or a web browser was not found on this device.</string>
+
+    <!-- Double-back exit -->
+    <string name="double_back_exit_prompt">Press Back again to exit.</string>
+    <string name="exit_active_build_title">Build In Progress</string>
+    <string name="exit_active_build_msg">An active app build is currently running. Are you sure you want to leave the app?</string>
+    <string name="exit_active_build_stay">Stay</string>
+    <string name="exit_active_build_leave">Exit</string>
+</resources>
