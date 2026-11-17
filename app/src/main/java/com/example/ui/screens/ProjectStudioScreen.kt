@@ -2,7 +2,6 @@ package com.example.ui.screens
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
@@ -130,7 +129,8 @@ fun ProjectStudioScreen(
         bundle.webSettings?.let { web = it }
     }
 
-    val iconPicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    // استفاده از GetContent به جای PickVisualMedia برای اطمینان از باز شدن گالری محلی در همه گوشی‌ها
+    val iconPicker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) {
             onPickImage(project.id, uri, false) { savedPath ->
                 settings = settings.copy(iconFilePath = savedPath)
@@ -139,7 +139,7 @@ fun ProjectStudioScreen(
         }
     }
 
-    val splashPicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    val splashPicker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) {
             onPickImage(project.id, uri, true) { savedPath ->
                 settings = settings.copy(splashImagePath = savedPath)
@@ -171,7 +171,7 @@ fun ProjectStudioScreen(
                         modifier = Modifier.size(44.dp),
                     ) {
                         Box(contentAlignment = Alignment.Center) {
-                            Icon(Icons.Rounded.PlayArrow, contentDescription = "پیشنمایش زنده", tint = SkyBlue)
+                            Icon(Icons.Rounded.PlayArrow, contentDescription = "پیش‌نمایش زنده", tint = SkyBlue)
                         }
                     }
                     Spacer(Modifier.width(6.dp))
@@ -323,7 +323,8 @@ fun ProjectStudioScreen(
                                     }
                                     OutlinedButton(
                                         onClick = {
-                                            iconPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                                            // تغییر به GetContent با نوع image/*
+                                            iconPicker.launch("image/*")
                                         },
                                         shape = RoundedCornerShape(14.dp),
                                         modifier = Modifier.weight(1f).height(48.dp),
@@ -353,7 +354,8 @@ fun ProjectStudioScreen(
                                     }
                                     OutlinedButton(
                                         onClick = {
-                                            splashPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                                            // تغییر به GetContent با نوع image/*
+                                            splashPicker.launch("image/*")
                                         },
                                         shape = RoundedCornerShape(14.dp),
                                         modifier = Modifier.weight(1f).height(48.dp),
@@ -375,7 +377,7 @@ fun ProjectStudioScreen(
                                     onSelectHex = { settings = settings.copy(primaryColorHex = it) },
                                 )
                                 Spacer(Modifier.height(14.dp))
-                                Text("رنگ پسزمینه برنامه", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                                Text("رنگ پس‌زمینه برنامه", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.height(8.dp))
                                 ColorSwatchRow(
                                     selectedHex = settings.backgroundColorHex,
@@ -459,7 +461,7 @@ fun ProjectStudioScreen(
                                     }
                                 }
                                 Spacer(Modifier.height(12.dp))
-                                Text("فونت پیشفرض", style = MaterialTheme.typography.titleSmall)
+                                Text("فونت پیش‌فرض", style = MaterialTheme.typography.titleSmall)
                                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                     AppFontChoice.entries.forEach { f ->
                                         val labelText = when (f) {
@@ -517,7 +519,7 @@ fun ProjectStudioScreen(
                                     onCheckedChange = { settings = settings.copy(splashEnabled = it) },
                                 )
                                 if (settings.splashEnabled) {
-                                    Text("مدت نمایش Splash: ${settings.splashDurationMs} میلیثانیه", style = MaterialTheme.typography.bodySmall)
+                                    Text("مدت نمایش Splash: ${settings.splashDurationMs} میلی‌ثانیه", style = MaterialTheme.typography.bodySmall)
                                     Slider(
                                         value = settings.splashDurationMs.toFloat(),
                                         onValueChange = { settings = settings.copy(splashDurationMs = it.toInt()) },
@@ -525,13 +527,13 @@ fun ProjectStudioScreen(
                                     )
                                 }
                                 SettingToggleRow(
-                                    title = "حالت تمامصفحه (Fullscreen)",
+                                    title = "حالت تمام‌صفحه (Fullscreen)",
                                     description = "مخفی کردن نوار وضعیت و ناوبری گوشی داخل اپ مقصد",
                                     checked = settings.fullscreenMode,
                                     onCheckedChange = { settings = settings.copy(fullscreenMode = it) },
                                 )
                                 SettingToggleRow(
-                                    title = "پشتیبانی کامل راستچین (RTL)",
+                                    title = "پشتیبانی کامل راست‌چین (RTL)",
                                     description = "چیدمان استاندارد فارسی برای رابط کاربری برنامه",
                                     checked = settings.supportRtl,
                                     onCheckedChange = { settings = settings.copy(supportRtl = it) },
@@ -562,7 +564,7 @@ fun ProjectStudioScreen(
                                 )
                                 SettingToggleRow(
                                     title = "اجرای JavaScript",
-                                    description = "برای عملکرد صحیح سایتهای مدرن، فروشگاهها و فرمها ضروری است.",
+                                    description = "برای عملکرد صحیح سایت‌های مدرن، فروشگاه‌ها و فرم‌ها ضروری است.",
                                     checked = web.javaScriptEnabled,
                                     onCheckedChange = { web = web.copy(javaScriptEnabled = it) },
                                 )
@@ -575,7 +577,7 @@ fun ProjectStudioScreen(
                                 OutlinedTextField(
                                     value = web.customUserAgent,
                                     onValueChange = { web = web.copy(customUserAgent = it) },
-                                    label = { Text("User Agent سفارشی (خالی = پیشفرض)") },
+                                    label = { Text("User Agent سفارشی (خالی = پیش‌فرض)") },
                                     singleLine = true,
                                     shape = RoundedCornerShape(16.dp),
                                     modifier = Modifier.fillMaxWidth().testTag("webview_custom_ua_input"),
@@ -595,7 +597,7 @@ fun ProjectStudioScreen(
                             }
                         }
 
-                        // 2. امنیت و قابلیتهای موتور WebView
+                        // 2. امنیت و قابلیت‌های موتور WebView
                         item {
                             GlassCard(borderColor = CyanAccent.copy(alpha = 0.4f)) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -616,7 +618,7 @@ fun ProjectStudioScreen(
                                 Spacer(Modifier.height(8.dp))
                                 SettingToggleRow(
                                     title = "فقط HTTPS (حداکثر امنیت)",
-                                    description = "مسدود کردن خودکار تمام درخواستهای غیرامن HTTP.",
+                                    description = "مسدود کردن خودکار تمام درخواست‌های غیرامن HTTP.",
                                     checked = web.httpsOnly,
                                     onCheckedChange = { web = web.copy(httpsOnly = it) },
                                 )
@@ -655,13 +657,13 @@ fun ProjectStudioScreen(
                                 )
                                 SettingToggleRow(
                                     title = "آپلود فایل، چندتصویر و PDF",
-                                    description = "پشتیبانی از انتخاب چندگانه، گالری و دوربین در فرمهای سایت.",
+                                    description = "پشتیبانی از انتخاب چندگانه، گالری و دوربین در فرم‌های سایت.",
                                     checked = web.fileUploadEnabled,
                                     onCheckedChange = { web = web.copy(fileUploadEnabled = it) },
                                 )
                                 SettingToggleRow(
                                     title = "مدیریت دانلود (Download Manager)",
-                                    description = "دانلود مستقیم فایلها، فاکتورها و PDF بدون نیاز به مجوزهای ذخیره‌سازی پرخطر.",
+                                    description = "دانلود مستقیم فایل‌ها، فاکتورها و PDF بدون نیاز به مجوزهای ذخیره‌سازی پرخطر.",
                                     checked = web.downloadManagerEnabled,
                                     onCheckedChange = { web = web.copy(downloadManagerEnabled = it) },
                                 )
@@ -685,7 +687,7 @@ fun ProjectStudioScreen(
                                 Spacer(Modifier.height(6.dp))
                                 SettingToggleRow(
                                     title = "دسترسی دوربین (Camera)",
-                                    description = "برای اسکن مدارک، احراز هویت تصویری یا ثبت تصویر فرمها.",
+                                    description = "برای اسکن مدارک، احراز هویت تصویری یا ثبت تصویر فرم‌ها.",
                                     checked = web.cameraPermission,
                                     onCheckedChange = { web = web.copy(cameraPermission = it) },
                                 )
@@ -720,8 +722,8 @@ fun ProjectStudioScreen(
                                 )
                                 Spacer(Modifier.height(6.dp))
                                 SettingToggleRow(
-                                    title = "موقعیت مکانی GPS در وبسایت",
-                                    description = "ارسال مختصات به نقشه یا سرویسهای ارسال کالا فقط با رضایت کاربر.",
+                                    title = "موقعیت مکانی GPS در وب‌سایت",
+                                    description = "ارسال مختصات به نقشه یا سرویس‌های ارسال کالا فقط با رضایت کاربر.",
                                     checked = web.geolocationEnabled,
                                     onCheckedChange = { web = web.copy(geolocationEnabled = it) },
                                 )
@@ -744,25 +746,25 @@ fun ProjectStudioScreen(
                                     onCheckedChange = { web = web.copy(fullscreenVideoEnabled = it) },
                                 )
                                 Text(
-                                    "نکته فنی: پخش محتوای دارای قفل DRM اختصاصی یا کدکهای غیررایج وابسته به موتور WebView دستگاه است.",
+                                    "نکته فنی: پخش محتوای دارای قفل DRM اختصاصی یا کدک‌های غیررایج وابسته به موتور WebView دستگاه است.",
                                     style = MaterialTheme.typography.bodySmall,
                                     color = WarningAmber,
                                 )
                             }
                         }
 
-                        // 7. لینکها و پنجره‌ها
+                        // 7. لینک‌ها و پنجره‌ها
                         item {
                             GlassCard {
                                 Text(
-                                    "۷. لینکها، پنجرهها و مسیریابی",
+                                    "۷. لینک‌ها، پنجره‌ها و مسیریابی",
                                     style = MaterialTheme.typography.titleMedium,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.testTag("webview_cat_links"),
                                 )
                                 SettingToggleRow(
                                     title = "پنجره‌های چندگانه (Multiple Windows)",
-                                    description = "پشتیبانی از لینکهایی که در تب یا پنجره جدید باز میشوند.",
+                                    description = "پشتیبانی از لینک‌هایی که در تب یا پنجره جدید باز می‌شوند.",
                                     checked = web.multipleWindowsEnabled,
                                     onCheckedChange = { web = web.copy(multipleWindowsEnabled = it) },
                                 )
@@ -783,7 +785,7 @@ fun ProjectStudioScreen(
                                     }
                                 }
                                 Spacer(Modifier.height(8.dp))
-                                Text("رفتار لینکهای دامنه خارجی", style = MaterialTheme.typography.titleSmall)
+                                Text("رفتار لینک‌های دامنه خارجی", style = MaterialTheme.typography.titleSmall)
                                 Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                     ExternalLinkMode.entries.forEach { mode ->
                                         FilterChip(
@@ -809,20 +811,20 @@ fun ProjectStudioScreen(
                         item {
                             GlassCard {
                                 Text(
-                                    "۸. کوکی، حافظه سایت و کلیپبورد",
+                                    "۸. کوکی، حافظه سایت و کلیپ‌بورد",
                                     style = MaterialTheme.typography.titleMedium,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.testTag("webview_cat_storage"),
                                 )
                                 SettingToggleRow(
-                                    title = "ذخیره کوکیها (Cookies)",
+                                    title = "ذخیره کوکی‌ها (Cookies)",
                                     description = "حفظ نشست ورود کاربر پس از بستن و باز کردن مجدد برنامه.",
                                     checked = web.cookiesEnabled,
                                     onCheckedChange = { web = web.copy(cookiesEnabled = it) },
                                 )
                                 SettingToggleRow(
-                                    title = "کوکیهای شخص ثالث (Third-Party Cookies)",
-                                    description = "مورد نیاز برخی درگاههای پرداخت یا سرویسهای ورود با سرویسهای خارجی.",
+                                    title = "کوکی‌های شخص ثالث (Third-Party Cookies)",
+                                    description = "مورد نیاز برخی درگاه‌های پرداخت یا سرویس‌های ورود با سرویس‌های خارجی.",
                                     checked = web.thirdPartyCookiesEnabled,
                                     onCheckedChange = { web = web.copy(thirdPartyCookiesEnabled = it) },
                                 )
@@ -835,15 +837,15 @@ fun ProjectStudioScreen(
                                 SettingToggleRow(
                                     title = "پشتیبانی WebSQL (نسخه‌های قدیمی)",
                                     description = if (webCapabilities.supportsWebSql) {
-                                        "برای سایتهای قدیمی دارای پایگاه‌داده WebSQL."
+                                        "برای سایت‌های قدیمی دارای پایگاه‌داده WebSQL."
                                     } else {
-                                        "در اندروید ۱۳ و بالاتر منسوخ شده؛ سایتها از IndexedDB استفاده کنند."
+                                        "در اندروید ۱۳ و بالاتر منسوخ شده؛ سایت‌ها از IndexedDB استفاده کنند."
                                     },
                                     checked = web.webSqlEnabled,
                                     onCheckedChange = { web = web.copy(webSqlEnabled = it) },
                                 )
                                 SettingToggleRow(
-                                    title = "دسترسی کلیپ‌بورد برای وبسایت",
+                                    title = "دسترسی کلیپ‌بورد برای وب‌سایت",
                                     description = "اجازه کپی کد تخفیف یا شماره پیگیری از طریق JavaScript Bridge.",
                                     checked = web.clipboardAccessEnabled,
                                     onCheckedChange = { web = web.copy(clipboardAccessEnabled = it) },
@@ -885,7 +887,7 @@ fun ProjectStudioScreen(
                                 Spacer(Modifier.height(8.dp))
                                 SettingToggleRow(
                                     title = "نمایش نوار وضعیت (Status Bar)",
-                                    description = "نمایش ساعت، باتری و نوتیفیکیشنهای بالای صفحه در اپلیکیشن خروجی.",
+                                    description = "نمایش ساعت، باتری و نوتیفیکیشن‌های بالای صفحه در اپلیکیشن خروجی.",
                                     checked = settings.showStatusBar,
                                     onCheckedChange = { settings = settings.copy(showStatusBar = it) },
                                 )
@@ -912,13 +914,13 @@ fun ProjectStudioScreen(
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(Icons.Rounded.NotificationsActive, contentDescription = null, tint = WarningAmber)
                                     Spacer(Modifier.width(8.dp))
-                                    Text("اعلانها (Push Notification)", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                                    Text("اعلان‌ها (Push Notification)", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                                 }
                                 Spacer(Modifier.height(6.dp))
                                 StatusBadge(text = "نیازمند تنظیم سرویس جانبی (FCM / نجوا / پوشه)", color = WarningAmber)
                                 Spacer(Modifier.height(8.dp))
                                 SettingToggleRow(
-                                    title = "آمادهسازی اتصال Push Notification",
+                                    title = "آماده‌سازی اتصال Push Notification",
                                     description = "برای ارسال نوتیفیکیشن واقعی، پیکربندی کلید سرویس پوش سایت خود را وارد کنید.",
                                     checked = settings.enablePushIntegration,
                                     onCheckedChange = { settings = settings.copy(enablePushIntegration = it) },
@@ -941,7 +943,7 @@ fun ProjectStudioScreen(
                                 Text("Deep Links و App Links", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                                 SettingToggleRow(
                                     title = "پشتیبانی Deep Link اختصاصی",
-                                    description = "باز شدن مستقیم اپلیکیشن با لینکهای دارای Scheme اختصاصی",
+                                    description = "باز شدن مستقیم اپلیکیشن با لینک‌های دارای Scheme اختصاصی",
                                     checked = settings.enableDeepLinks,
                                     onCheckedChange = { settings = settings.copy(enableDeepLinks = it) },
                                 )
@@ -957,7 +959,7 @@ fun ProjectStudioScreen(
                                 }
                                 SettingToggleRow(
                                     title = "پشتیبانی App Links (تأیید دامنه)",
-                                    description = "نیازمند قرار دادن فایل assetlinks.json روی هاست وبسایت شماست.",
+                                    description = "نیازمند قرار دادن فایل assetlinks.json روی هاست وب‌سایت شماست.",
                                     checked = settings.enableAppLinks,
                                     onCheckedChange = { settings = settings.copy(enableAppLinks = it) },
                                 )
@@ -978,36 +980,36 @@ fun ProjectStudioScreen(
                             GlassCard {
                                 Text("امکانات بومی و درگاه پرداخت", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                                 SettingToggleRow(
-                                    title = "اشتراکگذاری لینک و فایل",
-                                    description = "دکمه اشتراکگذاری بومی اندروید در نوار ابزار و JavaScript Bridge",
+                                    title = "اشتراک‌گذاری لینک و فایل",
+                                    description = "دکمه اشتراک‌گذاری بومی اندروید در نوار ابزار و JavaScript Bridge",
                                     checked = settings.enableFileSharing,
                                     onCheckedChange = { settings = settings.copy(enableFileSharing = it) },
                                 )
                                 SettingToggleRow(
                                     title = "تماس تلفنی (tel:)",
-                                    description = "باز کردن شمارهگیر گوشی هنگام لمس شماره تماسهای سایت",
+                                    description = "باز کردن شماره‌گیر گوشی هنگام لمس شماره تماس‌های سایت",
                                     checked = settings.enablePhoneDialer,
                                     onCheckedChange = { settings = settings.copy(enablePhoneDialer = it) },
                                 )
                                 SettingToggleRow(
                                     title = "ارسال ایمیل (mailto:)",
-                                    description = "باز کردن برنامه ایمیل با لمس آدرسهای ایمیل",
+                                    description = "باز کردن برنامه ایمیل با لمس آدرس‌های ایمیل",
                                     checked = settings.enableEmailIntent,
                                     onCheckedChange = { settings = settings.copy(enableEmailIntent = it) },
                                 )
                                 SettingToggleRow(
-                                    title = "لینکهای نقشه و مسیریاب",
-                                    description = "باز کردن نشان، بلد یا گوگلمپ برای لینکهای مکانی",
+                                    title = "لینک‌های نقشه و مسیریاب",
+                                    description = "باز کردن نشان، بلد یا گوگل‌مپ برای لینک‌های مکانی",
                                     checked = settings.enableMapsIntent,
                                     onCheckedChange = { settings = settings.copy(enableMapsIntent = it) },
                                 )
                                 SettingToggleRow(
-                                    title = "مدیریت درگاههای پرداخت شاپرک و ایرانی",
-                                    description = "باز نگهداشتن شاپرک، زرینپال، آیدیپی و بهپرداخت در نشست امن برنامه",
+                                    title = "مدیریت درگاه‌های پرداخت شاپرک و ایرانی",
+                                    description = "باز نگه‌داشتن شاپرک، زرین‌پال، آیدی‌پی و به‌پرداخت در نشست امن برنامه",
                                     checked = settings.enablePaymentGatewayBridge,
                                     onCheckedChange = { settings = settings.copy(enablePaymentGatewayBridge = it) },
                                 )
-                                Text("رفتار لینکهای خارجی", style = MaterialTheme.typography.titleSmall)
+                                Text("رفتار لینک‌های خارجی", style = MaterialTheme.typography.titleSmall)
                                 ExternalLinkMode.entries.forEach { mode ->
                                     FilterChip(
                                         selected = settings.externalLinkMode == mode.name,
