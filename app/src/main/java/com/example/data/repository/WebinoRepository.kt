@@ -714,7 +714,7 @@ class WebinoRepository(
         // RSA-2048 key generation can take seconds on low-end phones: never run it on the main thread.
         val info = signingManager.createNewKeystore(alias, password, commonName, organization, country, validityYears)
         signingDao.clearDefaultKeys()
-        return signingDao.insertSigningKey(
+        signingDao.insertSigningKey(
             SigningKeyMetadataEntity(
                 alias = info.alias,
                 keystorePath = info.keystorePath,
