@@ -12,6 +12,7 @@ import org.bouncycastle.cms.CMSSignedData
 import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.io.File
+import java.io.InputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.security.MessageDigest
@@ -29,6 +30,18 @@ object OutputValidator {
         if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
             Security.addProvider(BouncyCastleProvider())
         }
+    }
+
+    // افزودن تابع کمکی برای خواندن امن بایت‌ها در همه نسخه‌های اندروید
+    private fun InputStream.readBytesSafely(maxBytes: Int): ByteArray {
+        val buffer = ByteArray(maxBytes)
+        var bytesRead = 0
+        while (bytesRead < maxBytes) {
+            val result = this.read(buffer, bytesRead, maxBytes - bytesRead)
+            if (result == -1) break
+            bytesRead += result
+        }
+        return if (bytesRead == 0) ByteArray(0) else if (bytesRead < maxBytes) buffer.copyOf(bytesRead) else buffer
     }
 
     data class ManifestIdentity(
@@ -103,7 +116,8 @@ object OutputValidator {
                 if (arscEntry == null || arscEntry.size < 32) {
                     structuralErrors.add("Missing resources.arsc")
                 } else {
-                    val arscHdr = zip.getInputStream(arscEntry).use { it.readNBytes(4) }
+                    // استفاده از تابع امن جایگزین
+                    val arscHdr = zip.getInputStream(arscEntry).use { it.readBytesSafely(4) }
                     if (arscHdr.size < 4 || arscHdr[0] != 0x02.toByte() || arscHdr[1] != 0x00.toByte()) {
                         structuralErrors.add("Invalid RES_TABLE_TYPE header in resources.arsc")
                     }
@@ -112,7 +126,8 @@ object OutputValidator {
                 if (dexEntry == null || dexEntry.size < 112) {
                     structuralErrors.add("Missing classes.dex")
                 } else {
-                    val dexHdr = zip.getInputStream(dexEntry).use { it.readNBytes(4) }
+                    // استفاده از تابع امن جایگزین
+                    val dexHdr = zip.getInputStream(dexEntry).use { it.readBytesSafely(4) }
                     if (String(dexHdr, Charsets.US_ASCII) != "dex\n") {
                         structuralErrors.add("Invalid DEX magic header in classes.dex")
                     }
@@ -121,7 +136,8 @@ object OutputValidator {
                 if (iconEntry == null || iconEntry.size < 32) {
                     structuralErrors.add("Missing launcher icon: ${ArscCompiler.ICON_APK_PATH}")
                 } else {
-                    val pngHdr = zip.getInputStream(iconEntry).use { it.readNBytes(4) }
+                    // استفاده از تابع امن جایگزین
+                    val pngHdr = zip.getInputStream(iconEntry).use { it.readBytesSafely(4) }
                     if (!isPngHeader(pngHdr)) {
                         structuralErrors.add("Invalid PNG header in ${ArscCompiler.ICON_APK_PATH}")
                     }
@@ -221,14 +237,16 @@ object OutputValidator {
                 }
 
                 zip.getEntry("base/dex/classes.dex")?.let { dexEntry ->
-                    val hdr = zip.getInputStream(dexEntry).use { it.readNBytes(4) }
+                    // استفاده از تابع امن جایگزین
+                    val hdr = zip.getInputStream(dexEntry).use { it.readBytesSafely(4) }
                     if (String(hdr, Charsets.US_ASCII) != "dex\n") {
                         errors.add("Invalid DEX magic in base/dex/classes.dex")
                     }
                 }
 
                 zip.getEntry("base/${ArscCompiler.ICON_APK_PATH}")?.let { iconEntry ->
-                    val hdr = zip.getInputStream(iconEntry).use { it.readNBytes(4) }
+                    // استفاده از تابع امن جایگزین
+                    val hdr = zip.getInputStream(iconEntry).use { it.readBytesSafely(4) }
                     if (!isPngHeader(hdr)) {
                         errors.add("Invalid PNG icon in AAB")
                     }
