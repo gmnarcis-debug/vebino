@@ -256,7 +256,7 @@ fun GradientPrimaryButton(
         enabled = enabled,
         interactionSource = interactionSource,
         modifier = modifier
-            .height(54.dp)
+            .height(56.dp) // افزایش ارتفاع دکمه
             .minimumInteractiveComponentSize()
             .scale(scale)
             .shadow(
@@ -277,7 +277,7 @@ fun GradientPrimaryButton(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(54.dp)
+                .height(56.dp) // افزایش ارتفاع دکمه
                 .background(brush, shape)
                 .border(
                     width = 1.dp,
@@ -318,7 +318,7 @@ fun WebinoSecondaryButton(
     OutlinedButton(
         onClick = onClick,
         modifier = modifier
-            .height(48.dp)
+            .height(56.dp) // افزایش ارتفاع دکمه
             .minimumInteractiveComponentSize(),
         shape = RoundedCornerShape(16.dp),
         border = BorderStroke(1.dp, accent.copy(alpha = 0.35f)),
@@ -469,7 +469,7 @@ fun WebinoFloatingGlassBottomBar(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(78.dp)
+                    .height(86.dp) // افزایش ارتفاع نوار پایین
                     .padding(horizontal = 8.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically,
@@ -495,7 +495,7 @@ fun WebinoFloatingGlassBottomBar(
                             .testTag(item.testTag),
                     ) {
                         Column(
-                            modifier = Modifier.padding(vertical = 6.dp, horizontal = 2.dp),
+                            modifier = Modifier.padding(vertical = 4.dp), // کاهش پدینگ برای جا شدن بهتر
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
                         ) {
@@ -526,7 +526,7 @@ fun WebinoFloatingGlassBottomBar(
                                     contentDescription = item.label,
                                 )
                             }
-                            Spacer(Modifier.height(2.dp))
+                            Spacer(Modifier.height(4.dp)) // افزایش فاصله برای خوانایی
                             Text(
                                 text = item.label,
                                 style = MaterialTheme.typography.labelSmall,
@@ -670,6 +670,7 @@ fun EmptyStateCard(
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onSurface,
             )
             Spacer(Modifier.height(6.dp))
             Text(

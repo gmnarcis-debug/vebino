@@ -3,6 +3,8 @@ package com.example.ui.screens
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
@@ -293,6 +295,20 @@ private fun installOrOpenOutput(context: Context, filePath: String, onNotify: (S
         onNotify("فایل خروجی یافت نشد.")
         return
     }
+
+    // بررسی مجوز نصب برنامه‌های ناشناس برای اندروید 8 (API 26) به بالا
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (!context.packageManager.canRequestPackageInstalls()) {
+            onNotify("برای نصب مستقیم، لطفاً به برنامه اجازه نصب برنامه‌های ناشناس را بدهید.")
+            val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
+                data = Uri.parse("package:${context.packageName}")
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(intent)
+            return
+        }
+    }
+
     runCatching {
         val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
         val intent = Intent(Intent.ACTION_VIEW).apply {
@@ -301,7 +317,7 @@ private fun installOrOpenOutput(context: Context, filePath: String, onNotify: (S
         }
         context.startActivity(intent)
     }.onFailure {
-        onNotify("امکان اجرای مستقیم نصبکننده در این محیط وجود ندارد؛ از دکمه ذخیره یا اشتراکگذاری استفاده کنید.")
+        onNotify("امکان اجرای مستقیم نصب‌کننده در این محیط وجود ندارد؛ از دکمه ذخیره یا اشتراک‌گذاری استفاده کنید.")
     }
 }
 
@@ -321,7 +337,7 @@ private fun shareOutput(context: Context, filePath: String, appName: String, onN
         }
         context.startActivity(Intent.createChooser(intent, appName))
     }.onFailure {
-        onNotify("خطا در اشتراکگذاری فایل.")
+        onNotify("خطا در اشتراک‌گذاری فایل.")
     }
 }
 
@@ -357,7 +373,7 @@ fun SigningManagerScreen(
                 context.contentResolver.openOutputStream(destUri)?.use { out ->
                     src.inputStream().use { it.copyTo(out) }
                 }
-            }.onSuccess { onNotify("پشتیبان رمزنگاریشده Keystore ذخیره شد.") }
+            }.onSuccess { onNotify("پشتیبان رمزنگاری‌شده Keystore ذخیره شد.") }
                 .onFailure { onNotify("خطا در تهیه نسخه پشتیبان.") }
         }
         backupKeyPending = null

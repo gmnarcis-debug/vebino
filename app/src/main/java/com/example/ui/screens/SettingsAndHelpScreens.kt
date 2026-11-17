@@ -97,6 +97,7 @@ fun SettingsScreen(
                         text = appString(R.string.settings_title),
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface, // اصلاح رنگ
                     )
                     Text(
                         text = if (isFa) "ظاهر، زبان، امنیت امضا و فضای ذخیره‌سازی" else "Appearance, language, signing & storage",
@@ -109,7 +110,12 @@ fun SettingsScreen(
 
         item {
             GlassCard {
-                Text(appString(R.string.settings_theme_section), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(
+                    text = appString(R.string.settings_theme_section),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                )
                 Spacer(Modifier.height(10.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     FilterChip(
@@ -157,7 +163,12 @@ fun SettingsScreen(
 
         item {
             GlassCard {
-                Text(appString(R.string.settings_language_section), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(
+                    text = appString(R.string.settings_language_section),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                )
                 Spacer(Modifier.height(10.dp))
                 Text(appString(R.string.settings_language_label), style = MaterialTheme.typography.labelMedium)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -203,7 +214,12 @@ fun SettingsScreen(
                     Webino3DGlassIcon(type = Webino3DIconType.SIGNING, size = 40.dp)
                     Spacer(Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(appString(R.string.settings_signing_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = appString(R.string.settings_signing_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
                         Text(
                             text = if (isFa) "ایجاد، وارد کردن، تغییر رمز و پشتیبان‌گیری امن کلیدهای امضا" else "Create, import, rotate passwords and backup signing keys",
                             style = MaterialTheme.typography.bodySmall,
@@ -216,7 +232,12 @@ fun SettingsScreen(
 
         item {
             GlassCard {
-                Text(appString(R.string.settings_storage_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(
+                    text = appString(R.string.settings_storage_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                )
                 Spacer(Modifier.height(8.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     StatusBadge(
@@ -272,7 +293,12 @@ fun SettingsScreen(
                     Webino3DGlassIcon(type = Webino3DIconType.HELP, size = 40.dp)
                     Spacer(Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(appString(R.string.settings_help_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = appString(R.string.settings_help_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
                         Text(
                             text = if (isFa) "آموزش ساخت اپلیکیشن، نکات امنیتی و راهنمای فنی موتور Build" else "Build architecture, signing safety and store publishing tips",
                             style = MaterialTheme.typography.bodySmall,
@@ -289,7 +315,12 @@ fun SettingsScreen(
                     Webino3DGlassIcon(type = Webino3DIconType.HISTORY, size = 40.dp)
                     Spacer(Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(if (isFa) "تاریخچه‌ی ساخت و لاگ" else "Build history & logs", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = if (isFa) "تاریخچه‌ی ساخت و لاگ" else "Build history & logs",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
                         Text(
                             text = if (isFa) "مشاهده و ارسال لاگ ساخت‌ها برای پشتیبانی" else "View and send build logs to support",
                             style = MaterialTheme.typography.bodySmall,
@@ -306,7 +337,12 @@ fun SettingsScreen(
                     Webino3DGlassIcon(type = Webino3DIconType.TEMPLATES, size = 40.dp)
                     Spacer(Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(if (isFa) "آموزش مرحله‌به‌مرحله" else "Step-by-step tutorial", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = if (isFa) "آموزش مرحله‌به‌مرحله" else "Step-by-step tutorial",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
                         Text(
                             text = if (isFa) "مرور دوباره‌ی آموزش ساخت اپلیکیشن" else "Replay the app-building walkthrough",
                             style = MaterialTheme.typography.bodySmall,
@@ -330,7 +366,12 @@ fun SettingsScreen(
                     Icon(Icons.Rounded.Info, contentDescription = null, tint = CyanAccent)
                     Spacer(Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(appString(R.string.settings_about_title), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = appString(R.string.settings_about_title),
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
                         val localizedVer = localizeNumber(BuildConfig.VERSION_NAME, prefs.language, usePersianDigits)
                         Text(
                             text = if (isFa) {
@@ -380,7 +421,12 @@ fun HelpCenterScreen(onBack: () -> Unit) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Webino3DGlassIcon(type = Webino3DIconType.BUILD, size = 36.dp)
                         Spacer(Modifier.width(10.dp))
-                        Text("معماری واقعی ساخت روی گوشی (On-Device Build)", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "معماری واقعی ساخت روی گوشی (On-Device Build)",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
                     }
                     Spacer(Modifier.height(10.dp))
                     Text(
@@ -393,6 +439,7 @@ fun HelpCenterScreen(onBack: () -> Unit) {
                             "• هم‌ترازی ۴بایتی (ZipAlign) و امضای v1/v2/v3 با Google apksig\n" +
                             "• تولید بسته AAB با Protobuf و امضای CMS",
                         style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
                     )
                 }
             }
@@ -402,7 +449,12 @@ fun HelpCenterScreen(onBack: () -> Unit) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Rounded.Storefront, contentDescription = null, tint = SuccessEmerald)
                         Spacer(Modifier.width(8.dp))
-                        Text("چک‌لیست انتشار در مایکت", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "چک‌لیست انتشار در مایکت",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
                     }
                     Spacer(Modifier.height(8.dp))
                     listOf(
@@ -414,7 +466,7 @@ fun HelpCenterScreen(onBack: () -> Unit) {
                         Row(modifier = Modifier.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Rounded.CheckCircle, contentDescription = null, tint = SuccessEmerald)
                             Spacer(Modifier.width(8.dp))
-                            Text(tip, style = MaterialTheme.typography.bodySmall)
+                            Text(tip, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurface)
                         }
                     }
                 }
@@ -425,7 +477,12 @@ fun HelpCenterScreen(onBack: () -> Unit) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Rounded.SupportAgent, contentDescription = null, tint = SkyBlue)
                         Spacer(Modifier.width(8.dp))
-                        Text("پشتیبانی فنی وبینو", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "پشتیبانی فنی وبینو",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
                     }
                     Spacer(Modifier.height(6.dp))
                     Text(
