@@ -158,8 +158,6 @@ dependencies {
   
   // افزودن وابستگی‌های گم‌شده کتابخانه کامپایلر جاوا
   implementation("javax.annotation:javax.annotation-api:1.3.2")
-  implementation("javax.lang.model:javax.lang.model.element:2.0.1")
-  implementation("javax.lang.model:javax.lang.model.util:2.0.1")
 
   // implementation(libs.play.services.location)
   // implementation(libs.retrofit)
