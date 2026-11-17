@@ -10,3 +10,8 @@
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 -keep class com.example.ui.navigation.** { *; }
 -keep class com.example.data.repository.ProjectHistoryEntry { *; }
+
+# Fix for missing javax.lang.model classes on Android (ECJ Compiler dependency)
+-dontwarn javax.lang.model.**
+-dontwarn javax.tools.**
+-dontwarn javax.annotation.**
