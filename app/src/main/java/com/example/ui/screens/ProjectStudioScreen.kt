@@ -134,7 +134,6 @@ fun ProjectStudioScreen(
         if (uri != null) {
             onPickImage(project.id, uri, false) { savedPath ->
                 settings = settings.copy(iconFilePath = savedPath)
-                onSave(project, settings.copy(iconFilePath = savedPath), web, "بروزرسانی آیکون برنامه")
             }
         }
     }
@@ -143,7 +142,6 @@ fun ProjectStudioScreen(
         if (uri != null) {
             onPickImage(project.id, uri, true) { savedPath ->
                 settings = settings.copy(splashImagePath = savedPath)
-                onSave(project, settings.copy(splashImagePath = savedPath), web, "بروزرسانی تصویر Splash")
             }
         }
     }

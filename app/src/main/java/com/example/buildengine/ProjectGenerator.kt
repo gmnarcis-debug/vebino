@@ -134,6 +134,7 @@ public class MainActivity extends Activity {
     private static final int BACK_BEHAVIOR = ${spec.backBehavior.ordinal};
     private static final boolean SPLASH_ENABLED = ${spec.splashEnabled};
     private static final int SPLASH_DURATION_MS = ${spec.splashDurationMs};
+    private static final int SPLASH_LOGO_DP = ${if (spec.splashPngBytes != null) 200 else 108};
     private static final boolean SHOW_TOP_BAR = $showTopBar;
     private static final boolean SHOW_BOTTOM_BAR = $showBottomBar;
 
@@ -458,7 +459,7 @@ public class MainActivity extends Activity {
                 logo.setImageBitmap(bm);
             }
         } catch (Exception ignored) {}
-        LinearLayout.LayoutParams logoLp = new LinearLayout.LayoutParams(dp(108), dp(108));
+        LinearLayout.LayoutParams logoLp = new LinearLayout.LayoutParams(dp(SPLASH_LOGO_DP), dp(SPLASH_LOGO_DP));
         logoLp.setMargins(0, 0, 0, dp(20));
         splash.addView(logo, logoLp);
 

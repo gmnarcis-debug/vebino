@@ -92,6 +92,12 @@ class OnDeviceBuildOrchestrator(private val context: Context) : BuildEngine {
             // Stage 2: Prepare Resources
             logAndEmit(BuildStep.PREPARING_RESOURCES, 15, "در حال تولید آیکونهای تطبیقی و پیکربندی منابع برنامه...")
             val generatedRes = ResourceGenerator.generate(spec)
+            logAndEmit(
+                BuildStep.PREPARING_RESOURCES,
+                17,
+                "آیکون: " + (spec.iconPngBytes?.let { "تصویر سفارشی (${it.size} بایت)" } ?: "پیش‌فرض (تصویری انتخاب نشده یا فایل یافت نشد)") +
+                    " • Splash: " + (spec.splashPngBytes?.let { "تصویر سفارشی (${it.size} بایت)" } ?: "پیش‌فرض"),
+            )
             val arscBytes = ArscCompiler.compile(
                 packageName = spec.packageName,
                 appName = spec.appName,

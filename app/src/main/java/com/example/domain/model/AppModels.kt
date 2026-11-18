@@ -96,7 +96,7 @@ enum class BackNavigationBehavior(val titleFa: String, val descriptionFa: String
 enum class BuildOutputFormat(val titleFa: String, val extension: String) {
     APK("فایل نصبی APK", "apk"),
     AAB("بسته انتشار AAB", "aab"),
-    BOTH("هر دو (APK + AAB)", "both"),
+    BOTH("هردو", "both"),
 }
 
 enum class BuildStep(val order: Int, val titleFa: String, val titleEn: String, val weightPercent: Int) {

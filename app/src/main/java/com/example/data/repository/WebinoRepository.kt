@@ -3,6 +3,8 @@ package com.example.data.repository
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
 import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
@@ -277,30 +279,78 @@ class WebinoRepository(
         Result.success(newId)
     }
 
+    /** Decodes, EXIF-rotates, square-crops and stores the picked image. Throws with a readable reason on failure. */
+    private fun cropAndStoreImage(projectId: Long, sourceUri: Uri, isSplash: Boolean): String {
+        // Two-pass decode: a 50 MP camera photo decoded at full size can exhaust memory.
+        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        context.contentResolver.openInputStream(sourceUri)?.use { BitmapFactory.decodeStream(it, null, bounds) }
+            ?: throw IllegalStateException("فایل انتخاب‌شده قابل باز شدن نیست.")
+        var sample = 1
+        while (bounds.outWidth / sample > 2048 || bounds.outHeight / sample > 2048) sample *= 2
+        val decoded = context.contentResolver.openInputStream(sourceUri)?.use {
+            BitmapFactory.decodeStream(it, null, BitmapFactory.Options().apply { inSampleSize = sample })
+        } ?: throw IllegalStateException("فرمت تصویر پشتیبانی نمی‌شود.")
+
+        // Camera photos carry their rotation in EXIF; without this they come out sideways.
+        val orientation = runCatching {
+            context.contentResolver.openInputStream(sourceUri)?.use {
+                ExifInterface(it).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+            }
+        }.getOrNull() ?: ExifInterface.ORIENTATION_NORMAL
+        val degrees = when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> 90f
+            ExifInterface.ORIENTATION_ROTATE_180 -> 180f
+            ExifInterface.ORIENTATION_ROTATE_270 -> 270f
+            else -> 0f
+        }
+        val raw = if (degrees != 0f) {
+            Bitmap.createBitmap(decoded, 0, 0, decoded.width, decoded.height, Matrix().apply { postRotate(degrees) }, true)
+        } else {
+            decoded
+        }
+
+        val size = minOf(raw.width, raw.height)
+        val x = (raw.width - size) / 2
+        val y = (raw.height - size) / 2
+        val square = Bitmap.createBitmap(raw, x, y, size, size)
+        val target = if (isSplash) 512 else 256
+        val scaled = Bitmap.createScaledBitmap(square, target, target, true)
+
+        val mediaDir = File(context.filesDir, "project_media/$projectId").apply { mkdirs() }
+        val dest = File(mediaDir, (if (isSplash) "splash_" else "icon_") + System.currentTimeMillis() + ".png")
+        dest.outputStream().use { fos -> scaled.compress(Bitmap.CompressFormat.PNG, 100, fos) }
+        return dest.absolutePath
+    }
+
     suspend fun saveCroppedProjectImage(projectId: Long, sourceUri: Uri, isSplash: Boolean): String? =
         withContext(Dispatchers.IO) {
-            runCatching {
-                // Two-pass decode: a 50 MP camera photo decoded at full size can exhaust memory.
-                val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-                context.contentResolver.openInputStream(sourceUri)?.use { BitmapFactory.decodeStream(it, null, bounds) }
-                var sample = 1
-                while (bounds.outWidth / sample > 2048 || bounds.outHeight / sample > 2048) sample *= 2
-                val raw = context.contentResolver.openInputStream(sourceUri)?.use {
-                    BitmapFactory.decodeStream(it, null, BitmapFactory.Options().apply { inSampleSize = sample })
-                } ?: return@withContext null
-                val size = minOf(raw.width, raw.height)
-                val x = (raw.width - size) / 2
-                val y = (raw.height - size) / 2
-                val square = Bitmap.createBitmap(raw, x, y, size, size)
-                val scaled = Bitmap.createScaledBitmap(square, if (isSplash) 512 else 256, if (isSplash) 512 else 256, true)
+            runCatching { cropAndStoreImage(projectId, sourceUri, isSplash) }.getOrNull()
+        }
 
-                val mediaDir = File(context.filesDir, "project_media/$projectId").apply { mkdirs() }
-                val dest = File(mediaDir, if (isSplash) "splash_${System.currentTimeMillis()}.png" else "icon_${System.currentTimeMillis()}.png")
-                dest.outputStream().use { fos ->
-                    scaled.compress(Bitmap.CompressFormat.PNG, 100, fos)
-                }
-                dest.absolutePath
-            }.getOrNull()
+    /**
+     * Stores the picked image AND writes the new path into the project's settings in the database,
+     * so the result never depends on the screen's local state (which a concurrent refresh can overwrite).
+     */
+    suspend fun applyProjectImage(projectId: Long, sourceUri: Uri, isSplash: Boolean): Result<String> =
+        withContext(Dispatchers.IO) {
+            runCatching {
+                val path = cropAndStoreImage(projectId, sourceUri, isSplash)
+                val bundle = projectDao.getProjectById(projectId)
+                    ?: throw IllegalStateException("پروژه یافت نشد.")
+                val current = bundle.settings
+                    ?: ProjectSettingsEntity(projectId = projectId, appName = bundle.project.name)
+                val previous = if (isSplash) current.splashImagePath else current.iconFilePath
+                val updated = if (isSplash) current.copy(splashImagePath = path) else current.copy(iconFilePath = path)
+                updateProjectBundle(
+                    bundle.project,
+                    updated,
+                    bundle.webSettings ?: WebSettingsEntity(projectId = projectId),
+                    if (isSplash) "بروزرسانی تصویر Splash" else "بروزرسانی آیکون برنامه",
+                )
+                // Drop the replaced image so old copies do not pile up in storage.
+                previous?.takeIf { it != path }?.let { runCatching { File(it).delete() } }
+                path
+            }
         }
 
     suspend fun validateBuildSpec(

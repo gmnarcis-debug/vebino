@@ -299,13 +299,19 @@ class WebinoViewModel(application: Application) : AndroidViewModel(application) 
 
     fun importProjectImage(projectId: Long, uri: Uri, isSplash: Boolean, onSaved: (String) -> Unit) {
         viewModelScope.launch {
-            val savedPath = repo.saveCroppedProjectImage(projectId, uri, isSplash)
-            if (savedPath != null) {
-                onSaved(savedPath)
-                _snackbarMessage.value = if (isSplash) tr("تصویر Splash با برش مربعی ذخیره شد.", "Splash image saved with square crop.") else tr("آیکون برنامه با برش مربعی ذخیره شد.", "App icon saved with square crop.")
-            } else {
-                _snackbarMessage.value = tr("خطا در پردازش تصویر انتخابشده.", "Could not process the selected image.")
-            }
+            repo.applyProjectImage(projectId, uri, isSplash)
+                .onSuccess { savedPath ->
+                    onSaved(savedPath)
+                    _snackbarMessage.value = if (isSplash) {
+                        tr("تصویر Splash ذخیره و اعمال شد.", "Splash image saved and applied.")
+                    } else {
+                        tr("آیکون برنامه ذخیره و اعمال شد.", "App icon saved and applied.")
+                    }
+                }
+                .onFailure { e ->
+                    val reason = e.localizedMessage ?: e.javaClass.simpleName
+                    _snackbarMessage.value = tr("خطا در پردازش تصویر: $reason", "Could not process the image: $reason")
+                }
         }
     }
 

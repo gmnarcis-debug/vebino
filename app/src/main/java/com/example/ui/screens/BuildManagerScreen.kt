@@ -2,6 +2,7 @@ package com.example.ui.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -277,19 +278,63 @@ fun BuildManagerScreen(
                 GlassCard {
                     Text(if (isFa) "پیکربندی خروجی و امضا" else "Output & Signing Configuration", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     Spacer(Modifier.height(10.dp))
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // Three equal-width buttons: the long "APK + AAB" label wraps inside its own button
+                    // instead of pushing the third option onto a new line.
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
                         BuildOutputFormat.entries.forEach { fmt ->
-                            FilterChip(
-                                selected = selectedFormat == fmt,
+                            val selected = selectedFormat == fmt
+                            androidx.compose.material3.Surface(
                                 onClick = { if (!isRunning) selectedFormat = fmt },
-                                label = { Text(fmt.titleFa) },
-                            )
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(14.dp),
+                                color = if (selected) {
+                                    MaterialTheme.colorScheme.primary.copy(alpha = 0.16f)
+                                } else {
+                                    MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)
+                                },
+                                border = androidx.compose.foundation.BorderStroke(
+                                    width = if (selected) 1.5.dp else 1.dp,
+                                    color = if (selected) {
+                                        MaterialTheme.colorScheme.primary
+                                    } else {
+                                        MaterialTheme.colorScheme.outline.copy(alpha = 0.4f)
+                                    },
+                                ),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(56.dp)
+                                    .testTag("build_format_${fmt.name}"),
+                            ) {
+                                Box(
+                                    modifier = Modifier.fillMaxSize().padding(horizontal = 6.dp),
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Text(
+                                        text = fmt.titleFa,
+                                        style = MaterialTheme.typography.labelMedium,
+                                        fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+                                        color = if (selected) {
+                                            MaterialTheme.colorScheme.primary
+                                        } else {
+                                            MaterialTheme.colorScheme.onSurface
+                                        },
+                                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                        maxLines = 2,
+                                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                                    )
+                                }
+                            }
                         }
                     }
                     Spacer(Modifier.height(10.dp))
                     Text(if (isFa) "کلید امضای دیجیتال:" else "Signing Key:", style = MaterialTheme.typography.labelMedium)
                     Spacer(Modifier.height(6.dp))
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(
+                        modifier = Modifier.horizontalScroll(androidx.compose.foundation.rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
                         signingKeys.forEach { key ->
                             FilterChip(
                                 selected = selectedKeyId == key.id,

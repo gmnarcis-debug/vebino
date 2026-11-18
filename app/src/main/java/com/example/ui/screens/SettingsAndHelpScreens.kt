@@ -395,3 +395,103 @@ fun SettingsScreen(
         item { Spacer(Modifier.height(20.dp)) }
     }
 }
+
+@Composable
+fun HelpCenterScreen(onBack: () -> Unit) {
+    Scaffold(
+        containerColor = Color.Transparent,
+        topBar = {
+            WebinoScreenHeader(
+                title = "راهنما و استاندارد انتشار مایکت",
+                subtitle = "آشنایی با موتور ساخت محلی و نکات فروشگاه‌ها",
+                iconType = Webino3DIconType.HELP,
+                onBack = onBack,
+            )
+        }
+    ) { padding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
+            item {
+                GlassCard {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Webino3DGlassIcon(type = Webino3DIconType.BUILD, size = 36.dp)
+                        Spacer(Modifier.width(10.dp))
+                        Text(
+                            text = "معماری واقعی ساخت روی گوشی (On-Device Build)",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    Text(
+                        text = "در سیستم‌های دسکتاپ، ابزارهایی مثل Gradle و AAPT2 نیاز به اجرای باینری‌های دسکتاپ و ۲ تا ۴ گیگابایت رم دارند که در محیط محدود Sandbox اندروید بدون روت قابل اجرا نیستند.\n" +
+                            "وبینو به جای کپی کردن فایل آماده یا نیاز به سرور ابری، از یک زنجیره کامپایلر خالص JVM درون‌فرایند استفاده می‌کند:\n" +
+                            "• تولید کد Java اختصاصی برای بسته و تنظیمات شما\n" +
+                            "• کامپایل با Eclipse JDT Compiler (ECJ) روی دستگاه\n" +
+                            "• تبدیل بایت‌کد به classes.dex با موتور Dalvik DX\n" +
+                            "• کامپایل باینری AndroidManifest.xml و resources.arsc\n" +
+                            "• هم‌ترازی ۴بایتی (ZipAlign) و امضای v1/v2/v3 با Google apksig\n" +
+                            "• تولید بسته AAB با Protobuf و امضای CMS",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                    )
+                }
+            }
+
+            item {
+                GlassCard {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Rounded.Storefront, contentDescription = null, tint = SuccessEmerald)
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = "چک‌لیست انتشار در مایکت",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
+                    }
+                    Spacer(Modifier.height(8.dp))
+                    listOf(
+                        "استفاده از Package Name اختصاصی و منحصربه‌فرد (مثال: ir.shop.app)",
+                        "ساخت یا وارد کردن کلید امضای اختصاصی و نگهداری پشتیبان امن آن",
+                        "فعال نگه‌داشتن HTTPS-Only و سیاست مسدودسازی خطای SSL",
+                        "تست پیش‌نمایش زنده قبل از تولید نسخه نهایی",
+                    ).forEach { tip ->
+                        Row(modifier = Modifier.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Rounded.CheckCircle, contentDescription = null, tint = SuccessEmerald)
+                            Spacer(Modifier.width(8.dp))
+                            Text(tip, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurface)
+                        }
+                    }
+                }
+            }
+
+            item {
+                GlassCard {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Rounded.SupportAgent, contentDescription = null, tint = SkyBlue)
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = "پشتیبانی فنی وبینو",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface // اصلاح رنگ
+                        )
+                    }
+                    Spacer(Modifier.height(6.dp))
+                    Text(
+                        text = "در صورت بروز خطا در کامپایل یا تنظیم دامنه‌های App Links، گزارش Build را از صفحه مدیریت ساخت بررسی کنید. تمام اطلاعات پروژه و کلیدها به‌صورت محلی و رمزنگاری‌شده روی گوشی شما نگهداری می‌شوند.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+        }
+    }
+}
