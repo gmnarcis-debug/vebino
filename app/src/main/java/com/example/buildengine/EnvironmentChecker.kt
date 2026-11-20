@@ -12,7 +12,8 @@ import com.example.domain.model.EnvironmentCheckReport
  */
 object EnvironmentChecker {
 
-    private const val MIN_REQUIRED_STORAGE_MB = 30L
+    // حداقل فضای لازم به 100 مگابایت افزایش یافت تا فرآیند کامپایل و استخراج فایل‌ها با خطا مواجه نشود
+    private const val MIN_REQUIRED_STORAGE_MB = 100L
     private const val MIN_REQUIRED_RAM_MB = 32L
 
     fun inspect(context: Context): EnvironmentCheckReport {

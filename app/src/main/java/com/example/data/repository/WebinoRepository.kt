@@ -283,8 +283,13 @@ class WebinoRepository(
     private fun cropAndStoreImage(projectId: Long, sourceUri: Uri, isSplash: Boolean): String {
         // Two-pass decode: a 50 MP camera photo decoded at full size can exhaust memory.
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        context.contentResolver.openInputStream(sourceUri)?.use { BitmapFactory.decodeStream(it, null, bounds) }
+        val boundsStream = context.contentResolver.openInputStream(sourceUri)
             ?: throw IllegalStateException("فایل انتخاب‌شده قابل باز شدن نیست.")
+        // With inJustDecodeBounds the decoder returns null by design; only outWidth/outHeight matter.
+        boundsStream.use { BitmapFactory.decodeStream(it, null, bounds) }
+        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
+            throw IllegalStateException("فرمت تصویر پشتیبانی نمی‌شود.")
+        }
         var sample = 1
         while (bounds.outWidth / sample > 2048 || bounds.outHeight / sample > 2048) sample *= 2
         val decoded = context.contentResolver.openInputStream(sourceUri)?.use {

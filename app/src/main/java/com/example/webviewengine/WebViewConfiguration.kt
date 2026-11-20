@@ -71,7 +71,7 @@ object WebViewConfiguration {
 
         // Strict file-access hardening against local file exfiltration
         settings.allowFileAccess = false
-        settings.allowContentAccess = true
+        settings.allowContentAccess = false
         settings.allowFileAccessFromFileURLs = false
         settings.allowUniversalAccessFromFileURLs = false
 

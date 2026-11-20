@@ -64,7 +64,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -118,7 +117,9 @@ fun LivePreviewScreen(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val tokens = WebinoThemeTokens.colors
-    val savedWebBundle = rememberSaveable(bundle.project.id) { Bundle() }
+    
+    // باگ بحرانی رفع شد: استفاده از remember به جای rememberSaveable برای جلوگیری از کرش در چرخش صفحه
+    val savedWebBundle = remember(bundle.project.id) { Bundle() }
 
     var previewState by remember { mutableStateOf(WebPreviewState(currentUrl = bundle.project.websiteUrl)) }
     var isFullscreen by remember { mutableStateOf(false) }

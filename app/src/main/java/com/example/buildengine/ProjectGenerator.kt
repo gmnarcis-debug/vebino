@@ -486,7 +486,7 @@ public class MainActivity extends Activity {
         box.setPadding(dp(28), dp(28), dp(28), dp(28));
 
         errorTitleView = new TextView(this);
-        errorTitleView.setText("خطا در اتصال به وبسایت");
+        errorTitleView.setText("خطا در اتصال به وب‌سایت");
         errorTitleView.setTextColor(textInt);
         errorTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         errorTitleView.setTypeface(Typeface.DEFAULT_BOLD);
@@ -592,7 +592,7 @@ public class MainActivity extends Activity {
         ws.setAllowFileAccess(false);
         ws.setAllowFileAccessFromFileURLs(false);
         ws.setAllowUniversalAccessFromFileURLs(false);
-        ws.setAllowContentAccess(true);
+        ws.setAllowContentAccess(false); // اصلاح امنیتی: جلوگیری از دسترسی غیرمجاز به فایل‌های content
         ws.setLoadWithOverviewMode(true);
         ws.setUseWideViewPort(true);
         ws.setSupportZoom(ZOOM_ENABLED);
@@ -602,8 +602,8 @@ public class MainActivity extends Activity {
         ws.setJavaScriptCanOpenWindowsAutomatically(POPUPS_ALLOWED);
         ws.setSupportMultipleWindows(MULTI_WINDOW);
         ws.setMediaPlaybackRequiresUserGesture(!WEBRTC_ALLOWED);
-        ws.setCacheMode($cacheConst);
-        ws.setMixedContentMode($mixedConst);
+        ws.setCacheMode(${cacheConst});
+        ws.setMixedContentMode(${mixedConst});
         if (!CUSTOM_UA.isEmpty()) {
             ws.setUserAgentString(CUSTOM_UA);
         }
@@ -1164,7 +1164,7 @@ public class MainActivity extends Activity {
 
     private void loadTargetUrl(String url) {
         if (HTTPS_ONLY && url.startsWith("http://")) {
-            Toast.makeText(this, "فقط آدرسهای امن HTTPS مجاز هستند.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "فقط آدرس‌های امن HTTPS مجاز هستند.", Toast.LENGTH_LONG).show();
             return;
         }
         if (webView != null) {

@@ -203,7 +203,23 @@ object AxmlCompiler {
         )
     }
 
-    fun compile(root: XmlNode): ByteArray {
+    /**
+     * Android resolves manifest attributes (icon, label, theme...) by walking them in ascending
+     * resource-id order, exactly as aapt2 writes them. Attributes written in any other order are
+     * silently skipped by the framework, which leaves the app without an icon or label.
+     * Attributes without a resource id (e.g. `package`) go first, like aapt2 does.
+     */
+    private fun sortAttributesByResourceId(node: XmlNode): XmlNode {
+        fun idOf(a: XmlAttr): Int =
+            if (a.namespace == ANDROID_NS_URI) ATTR_RESOURCE_IDS[a.name] ?: 0 else 0
+        return node.copy(
+            attrs = node.attrs.sortedBy(::idOf),
+            children = node.children.map(::sortAttributesByResourceId),
+        )
+    }
+
+    fun compile(rawRoot: XmlNode): ByteArray {
+        val root = sortAttributesByResourceId(rawRoot)
         val stringList = mutableListOf<String>()
         val stringMap = LinkedHashMap<String, Int>()
         val resourceIds = mutableListOf<Int>()

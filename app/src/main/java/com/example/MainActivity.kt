@@ -76,7 +76,6 @@ import com.example.ui.components.Webino3DGlassIcon
 import com.example.ui.components.Webino3DIconType
 import com.example.ui.components.WebinoAmbientBackground
 import com.example.ui.components.WebinoFloatingGlassBottomBar
-import androidx.activity.compose.BackHandler
 import com.example.ui.screens.BuildHistoryScreen
 import com.example.ui.screens.OnboardingScreen
 import com.example.ui.navigation.WebinoRoute
@@ -370,6 +369,8 @@ fun WebinoAppRoot(viewModel: WebinoViewModel = viewModel()) {
                                         },
                                     ) {
                                         composable<WebinoRoute.Splash> {
+                                            // جلوگیری از بسته شدن برنامه با زدن دکمه Back در زمان لود شدن اولیه
+                                            BackHandler(enabled = true) { /* Do nothing */ }
                                             SplashScreen(
                                                 language = prefs.language,
                                                 onFinished = {

@@ -21,7 +21,6 @@ object JavaCompiler {
 
     fun extractStubsJar(context: Context, workDir: File): File {
         val stubsFile = File(workDir, "android-stubs.jar")
-        // اگر فایل موجود نبود، از assets کپی کن
         if (!stubsFile.exists() || stubsFile.length() < 1024) {
             context.assets.open("compiler/android-stubs.jar").use { input ->
                 stubsFile.outputStream().use { output ->
@@ -42,17 +41,8 @@ object JavaCompiler {
         val outWriter = StringWriter()
         val errWriter = StringWriter()
 
-        // جمع‌آوری مسیرهای کلاس‌های مورد نیاز برای کامپایلر
-        val classpathEntries = mutableListOf<String>()
-        classpathEntries.add(stubsJar.absolutePath)
-        
-        // افزودن فایل سیستمی اندروید که حاوی کلاس‌های پایه جاوا (String, Object و ...) است
-        val systemAndroidJar = File("/system/framework/android.jar")
-        if (systemAndroidJar.exists()) {
-            classpathEntries.add(systemAndroidJar.absolutePath)
-        }
-
-        val classpathString = classpathEntries.joinToString(File.pathSeparator)
+        // فقط از فایل Jar داخل assets استفاده می‌کنیم تا مشکل دسترسی اندروید 10+ پیش نیاید
+        val classpathString = stubsJar.absolutePath
 
         val args = mutableListOf(
             "-1.8",
@@ -73,7 +63,6 @@ object JavaCompiler {
             override fun worked(workIncrement: Int, remainingWork: Int) {}
         }
 
-        // قرار دادن کامپایل در بلوک try-catch برای جلوگیری از کرش کردن برنامه
         return try {
             val ok = Main.compile(
                 args.toTypedArray(),
@@ -96,7 +85,6 @@ object JavaCompiler {
                 diagnostics = diag,
             )
         } catch (t: Throwable) {
-            // در صورت بروز خطای داخلی در ECJ، پیام خطا را به جای کرش کردن برنامه، به کاربر نشان می‌دهیم
             val sw = StringWriter()
             t.printStackTrace(PrintWriter(sw))
             CompileResult(

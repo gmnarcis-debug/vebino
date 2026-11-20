@@ -1,0 +1,240 @@
+Folder PATH listing
+Volume serial number is AE53-2E3A
+C:.
+|   .env.example
+|   .gitignore
+|   all_codes.txt
+|   build.gradle.kts
+|   debug.keystore
+|   gradle.properties
+|   metadata.json
+|   project_structure.txt
+|   README.md
+|   settings.gradle.kts
+|   
++---.github
+|   \---workflows
+|           android-build.yml
+|           
++---app
+|   |   .gitignore
+|   |   build.gradle.kts
+|   |   proguard-rules.pro
+|   |   
+|   \---src
+|       +---androidTest
+|       |   \---java
+|       |       \---com
+|       |           \---example
+|       |                   ExampleInstrumentedTest.kt
+|       |                   
+|       +---main
+|       |   |   AndroidManifest.xml
+|       |   |   
+|       |   +---assets
+|       |   |   \---compiler
+|       |   |           android-stubs.jar
+|       |   |           
+|       |   +---java
+|       |   |   +---com
+|       |   |   |   \---example
+|       |   |   |       |   MainActivity.kt
+|       |   |   |       |   WebinoApplication.kt
+|       |   |   |       |   
+|       |   |   |       +---buildengine
+|       |   |   |       |       AabPackager.kt
+|       |   |   |       |       AabSigner.kt
+|       |   |   |       |       ApkPackager.kt
+|       |   |   |       |       ApkSigner.kt
+|       |   |   |       |       ApkSignerEngine.kt
+|       |   |   |       |       ArscCompiler.kt
+|       |   |   |       |       AxmlCompiler.kt
+|       |   |   |       |       BuildConfiguration.kt
+|       |   |   |       |       BuildEngine.kt
+|       |   |   |       |       BuildEngineContracts.kt
+|       |   |   |       |       BuildEngineModels.kt
+|       |   |   |       |       BuildReportGenerator.kt
+|       |   |   |       |       BuildStorageManager.kt
+|       |   |   |       |       DexGenerator.kt
+|       |   |   |       |       EnvironmentChecker.kt
+|       |   |   |       |       JavaCompiler.kt
+|       |   |   |       |       OnDeviceBuildOrchestrator.kt
+|       |   |   |       |       OutputValidator.kt
+|       |   |   |       |       ProjectGenerator.kt
+|       |   |   |       |       ProtoAabEncoder.kt
+|       |   |   |       |       ResourceGenerator.kt
+|       |   |   |       |       
+|       |   |   |       +---core
+|       |   |   |       |       DoubleBackExitState.kt
+|       |   |   |       |       ExternalIntentHelper.kt
+|       |   |   |       |       JalaliCalendar.kt
+|       |   |   |       |       LocalizationHelper.kt
+|       |   |   |       |       ProjectConfigSerializer.kt
+|       |   |   |       |       ValidationUtils.kt
+|       |   |   |       |       
+|       |   |   |       +---data
+|       |   |   |       |   +---crypto
+|       |   |   |       |   |       SigningManager.kt
+|       |   |   |       |   |       
+|       |   |   |       |   +---local
+|       |   |   |       |   |   +---db
+|       |   |   |       |   |   |       WebinoDao.kt
+|       |   |   |       |   |   |       WebinoDatabase.kt
+|       |   |   |       |   |   |       WebinoEntities.kt
+|       |   |   |       |   |   |       
+|       |   |   |       |   |   \---prefs
+|       |   |   |       |   |           UserPreferencesDataStore.kt
+|       |   |   |       |   |           
+|       |   |   |       |   +---network
+|       |   |   |       |   |       WebsiteInspector.kt
+|       |   |   |       |   |       
+|       |   |   |       |   \---repository
+|       |   |   |       |           WebinoRepository.kt
+|       |   |   |       |           
+|       |   |   |       +---domain
+|       |   |   |       |   +---model
+|       |   |   |       |   |       AppModels.kt
+|       |   |   |       |   |       
+|       |   |   |       |   \---usecase
+|       |   |   |       |           BuildUseCases.kt
+|       |   |   |       |           
+|       |   |   |       +---ui
+|       |   |   |       |   +---components
+|       |   |   |       |   |       Webino3DGlassIcons.kt
+|       |   |   |       |   |       WebinoComponents.kt
+|       |   |   |       |   |       
+|       |   |   |       |   +---navigation
+|       |   |   |       |   |       WebinoRoutes.kt
+|       |   |   |       |   |       
+|       |   |   |       |   +---screens
+|       |   |   |       |   |       AboutScreen.kt
+|       |   |   |       |   |       BuildHistoryScreen.kt
+|       |   |   |       |   |       BuildManagerScreen.kt
+|       |   |   |       |   |       CreateProjectScreen.kt
+|       |   |   |       |   |       LivePreviewScreen.kt
+|       |   |   |       |   |       OnboardingScreen.kt
+|       |   |   |       |   |       OutputsAndSigningScreens.kt
+|       |   |   |       |   |       ProjectsScreen.kt
+|       |   |   |       |   |       ProjectStudioScreen.kt
+|       |   |   |       |   |       SettingsAndHelpScreens.kt
+|       |   |   |       |   |       SplashAndDashboardScreens.kt
+|       |   |   |       |   |       
+|       |   |   |       |   +---theme
+|       |   |   |       |   |       Color.kt
+|       |   |   |       |   |       Theme.kt
+|       |   |   |       |   |       Type.kt
+|       |   |   |       |   |       
+|       |   |   |       |   \---viewmodel
+|       |   |   |       |           WebinoViewModel.kt
+|       |   |   |       |           
+|       |   |   |       +---webviewengine
+|       |   |   |       |       WebConnectivityManager.kt
+|       |   |   |       |       WebCookieManager.kt
+|       |   |   |       |       WebDownloadManager.kt
+|       |   |   |       |       WebErrorHandler.kt
+|       |   |   |       |       WebExternalLinkHandler.kt
+|       |   |   |       |       WebFullscreenManager.kt
+|       |   |   |       |       WebNavigationHandler.kt
+|       |   |   |       |       WebPermissionManager.kt
+|       |   |   |       |       WebPopupHandler.kt
+|       |   |   |       |       WebSecurityManager.kt
+|       |   |   |       |       WebStorageManager.kt
+|       |   |   |       |       WebUploadManager.kt
+|       |   |   |       |       WebViewConfiguration.kt
+|       |   |   |       |       WebViewEngine.kt
+|       |   |   |       |       WebViewFactory.kt
+|       |   |   |       |       WebViewLifecycleManager.kt
+|       |   |   |       |       
+|       |   |   |       \---work
+|       |   |   |               BuildNotifier.kt
+|       |   |   |               BuildWorker.kt
+|       |   |   |               
+|       |   |   \---javax
+|       |   |       \---lang
+|       |   |           \---model
+|       |   |                   SourceVersion.java
+|       |   |                   
+|       |   \---res
+|       |       +---drawable
+|       |       |       ic_launcher_background.xml
+|       |       |       ic_launcher_foreground.xml
+|       |       |       img_webino_icon.png
+|       |       |       
+|       |       +---font
+|       |       |       jetbrains_mono.ttf
+|       |       |       lalezar.ttf
+|       |       |       noto_naskh_arabic.ttf
+|       |       |       vazirmatn.ttf
+|       |       |       
+|       |       +---mipmap-anydpi-v26
+|       |       |       ic_launcher.xml
+|       |       |       ic_launcher_round.xml
+|       |       |       
+|       |       +---mipmap-hdpi
+|       |       |       ic_launcher.png
+|       |       |       ic_launcher_round.png
+|       |       |       
+|       |       +---mipmap-mdpi
+|       |       |       ic_launcher.png
+|       |       |       ic_launcher_round.png
+|       |       |       
+|       |       +---mipmap-xhdpi
+|       |       |       ic_launcher.png
+|       |       |       ic_launcher_round.png
+|       |       |       
+|       |       +---mipmap-xxhdpi
+|       |       |       ic_launcher.png
+|       |       |       ic_launcher_round.png
+|       |       |       
+|       |       +---mipmap-xxxhdpi
+|       |       |       ic_launcher.png
+|       |       |       ic_launcher_round.png
+|       |       |       
+|       |       +---values
+|       |       |       colors.xml
+|       |       |       strings.xml
+|       |       |       themes.xml
+|       |       |       
+|       |       +---values-en
+|       |       |       strings.xml
+|       |       |       
+|       |       \---xml
+|       |               backup_rules.xml
+|       |               data_extraction_rules.xml
+|       |               file_paths.xml
+|       |               
+|       \---test
+|           +---java
+|           |   +---android
+|           |   |   \---webkit
+|           |   |           TestSslErrorHandler.java
+|           |   |           
+|           |   \---com
+|           |       \---example
+|           |               ExampleRobolectricTest.kt
+|           |               ExampleUnitTest.kt
+|           |               OnDeviceBuildEngineTest.kt
+|           |               Prompt03BuildEngineTest.kt
+|           |               Prompt04WebViewIntegrationTest.kt
+|           |               WebinoCoreAndRepositoryTest.kt
+|           |               WebinoUiComposeTest.kt
+|           |               WebViewEngineTest.kt
+|           |               
+|           \---resources
+|                   webino_test_site.html
+|                   
++---docs
+|       BUILD_AND_ARCHITECTURE.md
+|       
++---gradle
+|   |   libs.versions.toml
+|   |   
+|   \---wrapper
+|           gradle-wrapper.properties
+|           
+\---public
+    \---assets
+        \---aistudio
+                1_b7e94348.jpg
+                2_6633f58e.jpg
+                
